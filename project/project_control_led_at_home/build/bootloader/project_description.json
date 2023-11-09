@@ -1,0 +1,20 @@
+{
+    "project_name":       "bootloader",
+    "project_path":       "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/bootloader/subproject",
+    "build_dir":          "D:/learning/esp/esp32_idf/Esp32_project/project/project_control_led_at_home/build/bootloader",
+    "config_file":        "D:/learning/esp/esp32_idf/Esp32_project/project/project_control_led_at_home/sdkconfig",
+    "config_defaults":    "",
+    "app_elf":            "bootloader.elf",
+    "app_bin":            "bootloader.bin",
+    "git_revision":       "v4.3",
+    "target":             "esp32",
+    "phy_data_partition": "",
+    "monitor_baud" :      "115200",
+    "monitor_toolprefix": "xtensa-esp32-elf-",
+    "config_environment" : {
+        "COMPONENT_KCONFIGS" : "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/efuse/Kconfig;D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/esp32/Kconfig;D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/esp_common/Kconfig;D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/esp_system/Kconfig;D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/log/Kconfig;D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/newlib/Kconfig;D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/spi_flash/Kconfig",
+        "COMPONENT_KCONFIGS_PROJBUILD" : "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/bootloader/Kconfig.projbuild;D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/esptool_py/Kconfig.projbuild;D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/partition_table/Kconfig.projbuild"
+    },
+    "build_components" : [ "bootloader", "bootloader_support", "efuse", "esp32", "esp_common", "esp_hw_support", "esp_rom", "esp_system", "esptool_py", "hal", "log", "main", "micro-ecc", "newlib", "partition_table", "soc", "spi_flash", "xtensa", "" ],
+    "build_component_paths" : [ "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/bootloader", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/bootloader_support", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/efuse", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/esp32", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/esp_common", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/esp_hw_support", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/esp_rom", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/esp_system", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/esptool_py", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/hal", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/log", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/bootloader/subproject/main", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/bootloader/subproject/components/micro-ecc", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/newlib", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/partition_table", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/soc", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/spi_flash", "D:/learning/esp/esp32_idf/Esp32_project/esp_idf/components/xtensa", "" ]
+}
