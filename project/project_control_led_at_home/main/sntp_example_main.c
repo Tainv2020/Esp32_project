@@ -44,12 +44,22 @@ static const char *TAG = "example";
 #define MIN_SUMMER_OFF  0
 #define SEC_SUMMER_OFF  0
 
+/* Led and Button */
+#define WIFI_PIN   2
+#define RELAY_PIN  22
+#define BUTTON_PIN 23
+
+/* Output State */
+#define ON  0
+#define OFF 1
+
 /* Variable holding number of times ESP32 restarted since first boot.
  * It is placed into RTC memory using RTC_DATA_ATTR and
  * maintains its value when ESP32 wakes from deep sleep.
  */
 RTC_DATA_ATTR static int boot_count = 0;
-static bool Led_Status = false;
+static bool TimeStt = false;
+static bool BtnStt = false;
 
 
 /*  FUNCTION */
@@ -69,14 +79,14 @@ void app_main(void)
     ESP_ERROR_CHECK(esp_event_loop_create_default());
 
     /* Setup GPIO pins*/
-    //lib_gpio_init();
+    gpio_setup();
     /* Wifi init */
     WifiStt = example_connect();
 
     /* Connected to Wifi */
     if(WifiStt == ESP_OK)
     {
-        //lib_gpio_write(GPIO_LED2, ON);
+        lib_gpio_write(WIFI_PIN, ON);
     }
 
     // SNTP service uses LwIP, please allocate large stack space.
@@ -88,7 +98,13 @@ void app_main(void)
 
 static void gpio_setup(void)
 {
-    
+    /* Setup mode */
+    lib_gpio_output_init(RELAY_PIN);
+    lib_gpio_output_init(WIFI_PIN);
+    lib_gpio_input_init(BUTTON_PIN, GPIO_PULLUP_ONLY, GPIO_INTR_DISABLE);
+
+    lib_gpio_write(WIFI_PIN, OFF);
+    lib_gpio_write(RELAY_PIN, OFF);
 }
 
 static void obtain_time(void)
@@ -155,11 +171,11 @@ static void sntp_example_task(void *arg)
                 /* Time ON */
                 if((timeinfo.tm_hour >= HOUR_WINTER_ON) || (timeinfo.tm_hour <= HOUR_WINTER_OFF))
                 {
-                    Led_Status = true;
+                    TimeStt = true;
                 }
                 else
                 {
-                    Led_Status = false;
+                    TimeStt = false;
                 }
             }
             else
@@ -168,11 +184,11 @@ static void sntp_example_task(void *arg)
                 /* Time ON */
                 if((timeinfo.tm_hour >= HOUR_SUMMER_ON) || (timeinfo.tm_hour <= HOUR_SUMMER_OFF))
                 {
-                    Led_Status = true;
+                    TimeStt = true;
                 }
                 else
                 {
-                    Led_Status = false;
+                    TimeStt = false;
                 }
             }
         }
@@ -185,28 +201,28 @@ static void sntp_example_task(void *arg)
 /* Button check function */
 static void button_check_task(void *arg)
 {
-    if(!lib_gpio_read(GPIO_BUTTON1))
+    if(!lib_gpio_read(BUTTON_PIN))
     {
         vTaskDelay(10 / portTICK_RATE_MS);
 
-        if(!lib_gpio_read(GPIO_BUTTON1))
-        {
-            if(Led_Status)
-                Led_Status = false;
-            else
-                Led_Status = true;
-        }
+        while(!lib_gpio_read(BUTTON_PIN));
+
+        BtnStt = !BtnStt;
+
     }
 }
 
 /* Button check function */
 static void controll_led_task(void *arg)
 {
-    if(Led_Status)
+    if((BtnStt && TimeStt) || (BtnStt && !TimeStt) || (!BtnStt && TimeStt))
     {
-        ESP_LOGI(TAG, "Led ON");
-        lib_gpio_write(GPIO_LED1, ON);
+        ESP_LOGI(TAG, "RELAY ON");
+        lib_gpio_write(RELAY_PIN, ON);
     }
     else
     {
-        ESP_
+        ESP_LOGI(TAG, "RELAY OFF");
+        lib_gpio_write(RELAY_PIN, OFF);
+    }
+}
